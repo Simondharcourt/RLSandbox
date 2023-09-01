@@ -11,15 +11,15 @@ import random
 
 window_size = 50
 SIZE = 20
-EPISODES = 2000
-RENDER = 1000
+EPISODES = 3000
+RENDER = 3000
 ALPHA = 0.1
 GAMMA = 0.99  # try 0.9: the snake we'll probably be stuck
 DECAY = 0.999
 REWARD_INIT = 3000
 STEP_PENALTY = 3
 PAUSE_DURATION = 0.000001 
-START = np.array(random.choice([[1, 1], [1, SIZE-2], [SIZE-2, 1], [SIZE-2, SIZE-2], [SIZE//2, SIZE//2]]))
+START = np.array(random.choice([[1, 1], [1, SIZE-2], [SIZE-2, 1], [SIZE-2, SIZE-2]]))
 TARGET = np.array(random.choice([[1, 1], [1, SIZE-2], [SIZE-2, 1], [SIZE-2, SIZE-2]]))
 while TARGET[0] == START[0] or TARGET[1] == START[1]:
     TARGET = np.array(random.choice([[1, 1], [1, SIZE-2], [SIZE-2, 1], [SIZE-2, SIZE-2]]))

@@ -1,0 +1,4 @@
+rlcard
+gym
+rlcard[torch]
+numpy

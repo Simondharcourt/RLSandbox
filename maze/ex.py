@@ -10,13 +10,13 @@ import matplotlib.pyplot as plt
 
 window_size = 50
 SIZE = 10
-EPISODES = 3000
+EPISODES = 1000
 ALPHA = 0.1
 GAMMA = 0.99  # try 0.9: the snake we'll probably be stuck
 DECAY = 0.999
 REWARD_INIT = 500
 STEP_PENALTY = 5
-RENDER = 1000
+RENDER = 200
 
 maze = np.array([
     [0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
@@ -38,12 +38,9 @@ class CustomEnv(gym.Env):
 
         self.action_space = spaces.Discrete(4)
         self.observation_space = spaces.Box(low=0, high=SIZE, shape=(10,), dtype=np.int32)
-
         self.maze = maze
-        
         self.state = np.array([1, 1])
         self.target = np.array([SIZE-1, SIZE-1])
-
         self.trajectory = []
 
     def reset(self):
@@ -107,7 +104,6 @@ class CustomEnv(gym.Env):
 
 
 
-
 def state_to_col(state):
     return state[0] * SIZE + state[1]
 
@@ -138,7 +134,6 @@ class QLearningAgent:
         self.q_table[state_to_col(state), action] += self.alpha * (
             reward + self.gamma * self.q_table[state_to_col(next_state), best_next_action] - self.q_table[state_to_col(state), action]
         )
-        
     
     def decay_epsilon(self):
         if self.epsilon > self.epsilon_min:
@@ -152,8 +147,6 @@ def moving_average(data, window_size):
 
 if __name__ == "__main__":
     env = CustomEnv()
-    obs_low = env.observation_space.low
-    obs_high = env.observation_space.high
     obs_bins = [SIZE+1, SIZE+1]  # Number of bins for each dimension
     agent = QLearningAgent(env.action_space.n, np.prod(obs_bins))
     episode_rewards = []
